@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Weather App</h1>
+      <h1>Weather Beats</h1>
       <CityInput onTemperatureUpdate={handleTemperatureUpdate} onError={handleError} />
       <TemperatureDisplay temperature={temperature} error={error} />
     </div>
