@@ -10,7 +10,8 @@ const City = ({ onTemperatureUpdate, onSongQualitiesUpdate, onError }) => {
     try {
       const response = await axios.post('http://127.0.0.1:5000/weather', { city });
       const { temperature, song_qualities } = response.data;
-      
+      // const song_qualities = song_data["audio_features"]
+
       onTemperatureUpdate(temperature);
       
       onSongQualitiesUpdate(song_qualities);
@@ -19,7 +20,7 @@ const City = ({ onTemperatureUpdate, onSongQualitiesUpdate, onError }) => {
       setCity("");
     } catch (error) {
       // Handle error
-      onError("Failed to fetch weather data");
+      onError("Failed to fetch:", error.message);
     }
   };
 
