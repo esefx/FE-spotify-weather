@@ -7,8 +7,8 @@ import SongQualitiesDisplay from './components/SongQualitiesDisplay';
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [temperature, setTemperature] = useState('');
-  const [error, setError] = useState('');
   const [songQualities, setSongQualities] = useState([]);
+
 
   const handleLogin = () => {
     setLoggedIn(true);
@@ -19,13 +19,13 @@ const App = () => {
       <h1>Weather Beats</h1>
       {loggedIn ? (
         <>
-          <CityInput onTemperatureUpdate={setTemperature}  onSongQualitiesUpdatesongQualities={setSongQualities} onError={setError} />
-          <TemperatureDisplay temperature={temperature} error={error} />
+          <CityInput onTemperatureUpdate={setTemperature}  onSongQualitiesUpdate={setSongQualities}/>
+          <TemperatureDisplay temperature={temperature} />
           <SongQualitiesDisplay songQualities={songQualities}></SongQualitiesDisplay>
         </>
       ) : (
         <div>
-          <Login onLogin={handleLogin} />
+          <Login onLogin={handleLogin}/>
         </div>
       )}
     </div>

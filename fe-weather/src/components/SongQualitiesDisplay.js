@@ -3,12 +3,16 @@ import React from 'react';
 const SongQualitiesDisplay = ({ songQualities }) => {
   return (
     <div>
-      <h2>Song Qualities</h2>
-      <ul>
-        {songQualities.map((quality, index) => (
-          <li key={index}>{quality}</li>
-        ))}
-      </ul>
+      {songQualities.map((song, index) => (
+        <div key={index}>
+          <h2>Song {index + 1}</h2>
+          <p>Acousticness: {song.acousticness}</p>
+          <p>Danceability: {song.danceability}</p>
+          <p>Energy: {song.energy}</p>
+          <p>Instrumentalness: {song.instrumentalness}</p>
+          {/* Add more qualities as needed */}
+        </div>
+      ))}
     </div>
   );
 };

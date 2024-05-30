@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin}) => {
     const [error, setError] = useState('');
     const [authUrl, setAuthUrl] = useState('');
 
@@ -20,13 +20,14 @@ const Login = ({ onLogin }) => {
         // Capture authorization code from URL and send it to backend
         const params = new URLSearchParams(window.location.search);
         const authCode = params.get('code');
-        console.log(authCode);
 
         if (authCode) {
             axios.post('http://127.0.0.1:5000/callback', { code: authCode })
                 .then(response => {
                     if (response.data.login_status === 'successful') {
-                        onLogin(); // or any other action to indicate successful login
+                        onLogin(); 
+                        localStorage.setItem('access_token', response.data.access_token);
+
                     } else {
                         setError('Login failed: ' + response.data.error);
                     }

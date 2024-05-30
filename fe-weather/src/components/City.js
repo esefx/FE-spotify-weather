@@ -1,26 +1,32 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const City = ({ onTemperatureUpdate, onSongQualitiesUpdate, onError }) => {
+const City = ({ onTemperatureUpdate, onSongQualitiesUpdate }) => {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:5000/weather', { city });
+      const token = localStorage.getItem('access_token');
+      const response = await axios.post(
+        'http://127.0.0.1:5000/weather', 
+        { city }, 
+        { 
+          headers: { 
+            'Authorization': `Bearer ${token}` 
+          } 
+        }
+      );
       const { temperature, song_qualities } = response.data;
-      // const song_qualities = song_data["audio_features"]
 
       onTemperatureUpdate(temperature);
-      
       onSongQualitiesUpdate(song_qualities);
-      
+
       setError("");
       setCity("");
     } catch (error) {
       // Handle error
-      onError("Failed to fetch:", error.message);
     }
   };
 
