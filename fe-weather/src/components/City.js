@@ -1,32 +1,40 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const City = ({ onTemperatureUpdate, onSongQualitiesUpdate }) => {
+const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
 
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const accessToken = getCookie('accessToken'); 
     try {
-      const token = localStorage.getItem('access_token');
       const response = await axios.post(
         'http://127.0.0.1:5000/weather', 
         { city }, 
         { 
-          headers: { 
-            'Authorization': `Bearer ${token}` 
-          } 
+          headers: {
+            'Authorization': `Bearer ${accessToken}` 
+          }
         }
       );
-      const { temperature, song_qualities } = response.data;
-
+      const { temperature, playlist } = response.data;
+  
       onTemperatureUpdate(temperature);
-      onSongQualitiesUpdate(song_qualities);
-
+      onSetPlaylist(playlist);
+  
       setError("");
       setCity("");
     } catch (error) {
       // Handle error
+      setError(error.response.data.message || "An error occurred");
     }
   };
 

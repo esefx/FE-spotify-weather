@@ -1,59 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Login = ({ onLogin}) => {
+const Login = ({ onLogin }) => {
     const [error, setError] = useState('');
-    const [authUrl, setAuthUrl] = useState('');
 
-    useEffect(() => {
-        const fetchAuthUrl = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:5000/login');
-                setAuthUrl(response.data.auth_url);
-            } catch (error) {
-                setError('Failed to fetch authorization URL. Please try again.');
-            }
-        };
-
-        fetchAuthUrl();
-
-        // Capture authorization code from URL and send it to backend
-        const params = new URLSearchParams(window.location.search);
-        const authCode = params.get('code');
-
-        if (authCode) {
-            axios.post('http://127.0.0.1:5000/callback', { code: authCode })
-                .then(response => {
-                    if (response.data.login_status === 'successful') {
-                        onLogin(); 
-                        localStorage.setItem('access_token', response.data.access_token);
-
-                    } else {
-                        setError('Login failed: ' + response.data.error);
-                    }
-                })
-                .catch(error => {
-                    setError('Error sending authorization code to backend: ' + error.message);
-                });
-        } else if (params.get('error')) {
-            setError('Error returned by Spotify: ' + params.get('error'));
+    const handleLogin = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:5000/login');
+            const session_id = response.data.session_id;
+            document.cookie = `session_id=${session_id}`;
+            const authUrl = response.data.auth_url;
+            const popup = window.open(authUrl, 'Spotify Login', 'width=800,height=600');
+    
+            window.addEventListener('message', (event) => {
+                if (event.data === 'loginSuccess') {
+                    clearInterval(popupTick);
+                    popup.close(); // Ensure the popup is closed
+                    onLogin(); // Call the onLogin prop or update state as needed
+                }
+            }, false);
+    
+            const popupTick = setInterval(() => {
+                if (popup.closed) {
+                    clearInterval(popupTick);
+                }
+            }, 500);
+        } catch (error) {
+            setError('Failed to initiate Spotify login. Please try again.');
         }
-    }, [onLogin]);
+    };
 
     return (
         <div>
             <h2>Please Sign In to Spotify</h2>
-            {authUrl && (
-                <div>
-                    <p>Click the button below to sign in to Spotify:</p>
-                    <a href={authUrl}>
-                        <button>Sign In to Spotify</button>
-                    </a>
-                </div>
-            )}
+            <button onClick={handleLogin}>Sign In to Spotify</button>
             {error && <p>{error}</p>}
         </div>
     );
 };
-
 export default Login;
