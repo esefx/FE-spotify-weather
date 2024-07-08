@@ -6,7 +6,7 @@ const Login = ({ onLogin }) => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5000/login');
+            const response = await axios.get('https://be-spotify-weather.onrender.com/login');
             const session_id = response.data.session_id;
             document.cookie = `session_id=${session_id}`;
             const authUrl = response.data.auth_url;

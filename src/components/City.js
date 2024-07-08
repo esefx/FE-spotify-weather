@@ -17,7 +17,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
     const accessToken = getCookie('accessToken'); 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/weather', 
+        'https://be-spotify-weather.onrender.com/weather', 
         { city }, 
         { 
           headers: {
