@@ -12,6 +12,7 @@ const SpotifyPlaylist = ({ playlistId }) => {
         height="600" // Increased height
         allowtransparency="true"
         allow="encrypted-media"
+        title="Spotify Playlist created from city's weather data."
       ></iframe>
     </div>
   );
