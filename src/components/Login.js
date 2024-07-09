@@ -20,14 +20,14 @@ const Login = ({ onLogin }) => {
         // Function to send the authorization code to the backend
         const sendCodeToBackend = async (code) => {
             try {
-                const response = await axios.get('https://be-spotify-weather.onrender.com/callback', { code });
-                // Handle response from backend, e.g., setting user session
-                onLogin(); // Call the onLogin prop or update state as needed
+                const response = await axios.get('https://be-spotify-weather.onrender.com/callback', {
+                    params: { code } 
+                });
+                onLogin(); 
             } catch (error) {
                 setError('Failed to complete Spotify login. Please try again.');
             }
         };
-
         extractCode();
     }, [onLogin]);
 
