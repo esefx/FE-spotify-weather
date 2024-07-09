@@ -10,21 +10,22 @@ const Login = ({ onLogin }) => {
             const session_id = response.data.session_id;
             document.cookie = `session_id=${session_id}`;
             const authUrl = response.data.auth_url;
-            const popup = window.open(authUrl, 'Spotify Login', 'width=800,height=600');
+            window.location.href = authUrl;
+            // const popup = window.open(authUrl, 'Spotify Login', 'width=800,height=600');
     
-            window.addEventListener('message', (event) => {
-                if (event.data === 'loginSuccess') {
-                    clearInterval(popupTick);
-                    popup.close(); // Ensure the popup is closed
-                    onLogin(); // Call the onLogin prop or update state as needed
-                }
-            }, false);
+            // window.addEventListener('message', (event) => {
+            //     if (event.data === 'loginSuccess') {
+            //         clearInterval(popupTick);
+            //         popup.close(); // Ensure the popup is closed
+            //         onLogin(); // Call the onLogin prop or update state as needed
+            //     }
+            // }, false);
     
-            const popupTick = setInterval(() => {
-                if (popup.closed) {
-                    clearInterval(popupTick);
-                }
-            }, 500);
+            // const popupTick = setInterval(() => {
+            //     if (popup.closed) {
+            //         clearInterval(popupTick);
+            //     }
+            // }, 500);
         } catch (error) {
             setError('Failed to initiate Spotify login. Please try again.');
         }
