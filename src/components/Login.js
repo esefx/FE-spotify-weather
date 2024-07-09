@@ -20,7 +20,7 @@ const Login = ({ onLogin }) => {
         // Function to send the authorization code to the backend
         const sendCodeToBackend = async (code) => {
             try {
-                const response = await axios.post('https://be-spotify-weather.onrender.com/callback', { code });
+                const response = await axios.get('https://be-spotify-weather.onrender.com/callback', { code });
                 // Handle response from backend, e.g., setting user session
                 onLogin(); // Call the onLogin prop or update state as needed
             } catch (error) {
