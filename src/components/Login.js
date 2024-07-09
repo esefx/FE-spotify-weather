@@ -20,8 +20,9 @@ const Login = ({ onLogin }) => {
         // Function to send the authorization code to the backend
         const sendCodeToBackend = async (code) => {
             try {
+                const session_id = localStorage.getItem('session_id');
                 const response = await axios.get('https://be-spotify-weather.onrender.com/callback', {
-                    params: { code } 
+                    params: { code, session_id } 
                 });
                 onLogin(); 
             } catch (error) {
@@ -36,7 +37,7 @@ const Login = ({ onLogin }) => {
         try {
             const response = await axios.get('https://be-spotify-weather.onrender.com/login');
             const session_id = response.data.session_id;
-            document.cookie = `session_id=${session_id}`;
+            localStorage.setItem('session_id', session_id);
             const authUrl = response.data.auth_url;
             window.location.href = authUrl;
         } catch (error) {
