@@ -16,7 +16,8 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
         { 
           headers: {
             'Authorization': `Bearer ${accessToken}` 
-          }
+          }, 
+          withCredentials: true
         }
       );
       const { temperature, playlist } = response.data;
