@@ -5,16 +5,9 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
 
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const accessToken = getCookie('accessToken'); 
+    const accessToken = localStorage.getItem('accessToken'); 
     try {
       const response = await axios.post(
         'https://be-spotify-weather.onrender.com/weather', 
