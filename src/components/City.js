@@ -7,7 +7,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const accessToken = localStorage.getItem('accessToken'); 
+    const accessToken = localStorage.getItem('access_token'); 
     console.log("accessToken: ", accessToken);
     try {
       const response = await axios.post(
