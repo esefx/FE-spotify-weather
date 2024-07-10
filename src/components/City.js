@@ -8,7 +8,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const accessToken = localStorage.getItem('accessToken'); 
-    print("accessToken: ", accessToken);
+    console.log("accessToken: ", accessToken);
     try {
       const response = await axios.post(
         'https://be-spotify-weather.onrender.com/weather', 
