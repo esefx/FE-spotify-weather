@@ -17,13 +17,18 @@ const Login = ({ onLogin }) => {
             }
         };
 
-        // Function to send the authorization code to the backend
         const sendCodeToBackend = async (code) => {
             try {
                 const session_id = localStorage.getItem('session_id');
                 const response = await axios.get('https://be-spotify-weather.onrender.com/callback', {
                     params: { code, session_id } 
                 });
+                const accessToken = response.data.access_token;
+        
+                localStorage.setItem('access_token', accessToken);
+        
+                document.cookie = `access_token=${accessToken}; path=/; max-age=3600`; 
+        
                 onLogin(); 
             } catch (error) {
                 setError('Failed to complete Spotify login. Please try again.');
