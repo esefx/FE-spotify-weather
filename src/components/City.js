@@ -20,6 +20,8 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
     const accessToken = localStorage.getItem('access_token'); 
     setLoading(true); // Set loading state to true while fetching data
     setLoadingMessage(`Fetching weather in ${city}...`);
+    setLoadingMessage(`Finding top hits in ${city}...`);
+    setLoadingMessage(`Creating playlist with songs that fit the weather in ${city}...`);
     try {
       const response = await axios.post(
         'https://be-spotify-weather.onrender.com/weather', 
@@ -33,12 +35,10 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
       const { temperature, playlist } = response.data;
   
       onTemperatureUpdate(temperature);
-      setLoadingMessage(`Finding top hits in ${city}...`);
       onSetPlaylist(playlist);
   
       setError("");
       setCity(""); // Reset input field
-      setLoadingMessage(`Creating playlist with songs that fit the weather in ${city}...`);
       setSuccessMode(true); // Enable success mode
     } catch (error) {
       // Handle error
@@ -72,9 +72,6 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
 
   return (
     <form onSubmit={successMode ? handleReset : handleSubmit}>
-      <Typography variant="h6" gutterBottom>
-        City
-      </Typography>
       {!successMode && (
         <TextField
           fullWidth
