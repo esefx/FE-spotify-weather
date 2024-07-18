@@ -49,13 +49,13 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
         onChange={(e) => setCity(e.target.value)}
       />
       <Typography variant="body2" style={{ color: "gray", marginTop: 8 }}>
-        Enter the name of the city to get the weather
+      "Which city's weather would you like to explore today?"
       </Typography>
       {error && <Alert severity="error" style={{ marginTop: 8 }}>{error}</Alert>}
       <Button
         type="submit"
-        variant="contained"
-        color="primary"
+        variant="outlined"
+        color="success"
         style={{ marginTop: 16 }}
       >
         Get Weather
