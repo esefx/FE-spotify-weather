@@ -1,4 +1,6 @@
 import React from 'react';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 
 const TemperatureDisplay = ({ temperature, error }) => {
   const convertToFahrenheit = (celsius) => (celsius * 9/5) + 32;
@@ -6,11 +8,11 @@ const TemperatureDisplay = ({ temperature, error }) => {
   return (
     <div>
       {temperature && (
-        <>
-          <p>Temperature: {temperature}°C / {convertToFahrenheit(temperature).toFixed(2)}°F</p>
-        </>
+        <Typography variant="body1" gutterBottom>
+          Temperature: {temperature}°C / {convertToFahrenheit(temperature).toFixed(2)}°F
+        </Typography>
       )}
-      {error && <p>Error: {error}</p>}
+      {error && <Alert severity="error">{error}</Alert>}
     </div>
   );
 };
