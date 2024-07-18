@@ -55,7 +55,7 @@ const Login = ({ onLogin }) => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Button variant="contained" color="secondary" onClick={handleLogin} style={{ marginTop: 16 }}>
+            <Button variant="outlined" color="success" onClick={handleLogin} style={{ marginTop: 16 }}>
                 Sign In to Spotify
             </Button>
             {error && <Alert severity="error" style={{ marginTop: 16 }}>{error}</Alert>}
