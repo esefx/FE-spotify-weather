@@ -28,7 +28,7 @@ const App = () => {
           Weather Beats
         </Typography>
         <Typography variant="body1" align="center" paragraph>
-        Weather Beats is your new music buddy, blending real-time weather info with Spotify. Connect your Spotify account to start jamming. Just type in any city, and Weather Beats shows you what's rocking weather-wise. Then, kick back and let us whip up a playlist packed with local hits that vibe perfectly with the current weather. Discover your ultimate weather playlist—because every forecast deserves its own soundtrack!
+        Weather Beats blends real-time weather info with Spotify. Connect your Spotify account, type in any city, and kick back while we whip up a playlist packed with local hits that vibe perfectly with the current weather. Discover your ultimate weather playlist—because every forecast deserves its own soundtrack!
         </Typography>
         <Grid container justifyContent="center" spacing={2}>
           {loggedIn ? (
