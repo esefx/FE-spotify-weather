@@ -13,6 +13,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false); // Loading state
   const [loadingMessage, setLoadingMessage] = useState(""); // Dynamic loading message
+  const [successMode, setSuccessMode] = useState(false); // Success mode state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,8 +37,9 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
       onSetPlaylist(playlist);
   
       setError("");
-      setCity("");
+      setCity(""); // Reset input field
       setLoadingMessage(`Creating playlist with songs that fit the weather in ${city}...`);
+      setSuccessMode(true); // Enable success mode
     } catch (error) {
       // Handle error
       setError(error.response.data.message || "An error occurred");
@@ -45,6 +47,10 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
       setLoading(false); // Reset loading state regardless of success or failure
       setLoadingMessage(""); // Clear loading message
     }
+  };
+
+  const handleReset = () => {
+    setSuccessMode(false); // Reset to input mode
   };
 
   // Styled component for animated loading message
@@ -65,23 +71,25 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
   }));
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={successMode ? handleReset : handleSubmit}>
       <Typography variant="h6" gutterBottom>
         City
       </Typography>
-      <TextField
-        fullWidth
-        label="Enter city name"
-        variant="outlined"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
+      {!successMode && (
+        <TextField
+          fullWidth
+          label="Enter city name"
+          variant="outlined"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+      )}
       {isLoading && (
         <AnimatedMessage>
           <LoopIcon className="icon" /> {loadingMessage}
         </AnimatedMessage>
       )}
-      {!isLoading && (
+      {!isLoading && !successMode && (
         <Button
           type="submit"
           variant="outlined"
@@ -90,6 +98,11 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
         >
           Get Weather
         </Button>
+      )}
+      {successMode && (
+        <Typography variant="body1" style={{ marginTop: 16 }}>
+          Enter another city to explore more weather and music!
+        </Typography>
       )}
       {error && <Alert severity="error" style={{ marginTop: 16 }}>{error}</Alert>}
     </form>
