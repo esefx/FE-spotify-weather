@@ -19,10 +19,16 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
     e.preventDefault();
     const accessToken = localStorage.getItem('access_token'); 
     setLoading(true); // Set loading state to true while fetching data
-    setLoadingMessage(`Fetching weather in ${city}...`);
-    setLoadingMessage(`Finding top hits in ${city}...`);
-    setLoadingMessage(`Creating playlist with songs that fit the weather in ${city}...`);
+
     try {
+      // Display loading messages sequentially
+      setLoadingMessage(`Fetching weather in ${city}...`);
+      await wait(2000); // Wait for 2 seconds
+      setLoadingMessage(`Finding top hits in ${city}...`);
+      await wait(2000); // Wait for 2 seconds
+      setLoadingMessage(`Creating playlist with songs that fit the weather in ${city}...`);
+      await wait(2000); // Wait for 2 seconds
+
       const response = await axios.post(
         'https://be-spotify-weather.onrender.com/weather', 
         { city }, 
@@ -33,16 +39,15 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
         }
       );
       const { temperature, playlist } = response.data;
-  
+
       onTemperatureUpdate(temperature);
       onSetPlaylist(playlist);
-  
+
       setError("");
-      setCity(""); // Reset input field
-      setSuccessMode(true); // Enable success mode
+      setSuccessMode(true); 
     } catch (error) {
       // Handle error
-      setError(error.response.data.message || "An error occurred");
+      setError(error.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false); // Reset loading state regardless of success or failure
       setLoadingMessage(""); // Clear loading message
@@ -52,6 +57,9 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
   const handleReset = () => {
     setSuccessMode(false); // Reset to input mode
   };
+
+  // Helper function to simulate a delay
+  const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   // Styled component for animated loading message
   const AnimatedMessage = styled(Typography)(({ theme }) => ({
@@ -72,6 +80,12 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
 
   return (
     <form onSubmit={successMode ? handleReset : handleSubmit}>
+      {!successMode && !isLoading && (
+        <Typography variant="body1" style={{ marginBottom: 16 }}>
+          What city's weather and top hits do you want to explore today?
+        </Typography>
+      )}
+
       {!successMode && (
         <TextField
           fullWidth
@@ -81,11 +95,13 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
           onChange={(e) => setCity(e.target.value)}
         />
       )}
+
       {isLoading && (
         <AnimatedMessage>
           <LoopIcon className="icon" /> {loadingMessage}
         </AnimatedMessage>
       )}
+
       {!isLoading && !successMode && (
         <Button
           type="submit"
@@ -96,6 +112,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
           Get Weather
         </Button>
       )}
+
       {successMode && (
         <div>
           <Typography variant="body1" style={{ marginTop: 16 }}>
@@ -111,6 +128,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
           />
         </div>
       )}
+
       {error && <Alert severity="error" style={{ marginTop: 16 }}>{error}</Alert>}
     </form>
   );
