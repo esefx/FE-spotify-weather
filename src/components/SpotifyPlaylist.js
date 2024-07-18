@@ -21,12 +21,12 @@ const SpotifyPlaylist = ({ playlistId }) => {
         ></iframe>
       </div>
       {/* Spotify logo with text */}
-      <Typography variant="caption" gutterBottom>
+      <Typography variant="caption" gutterBottom style={{ backgroundColor: 'transparent' }}>
         Powered by
         <img
           src="/assets/spotify-logo.svg" 
           alt="Spotify Logo"
-          style={{ width: 80, marginLeft: 8, marginRight: 8 }}
+          style={{ width: 120, marginLeft: 8, marginRight: 8 }}
         />
         Spotify
       </Typography>
