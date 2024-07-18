@@ -9,16 +9,6 @@ const SpotifyPlaylist = ({ playlistId }) => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" mt={4} mb={4}>
-      {/* Spotify logo with text */}
-      <Typography variant="caption" gutterBottom>
-        Powered by
-        <img
-          src="/assets/spotify-logo.svg" 
-          alt="Spotify Logo"
-          style={{ width: 80, marginLeft: 8, marginRight: 8 }}
-        />
-        Spotify
-      </Typography>
       {/* Embedded Spotify playlist */}
       <div className="spotify-playlist-container">
         <iframe
@@ -30,6 +20,16 @@ const SpotifyPlaylist = ({ playlistId }) => {
           title="Spotify Playlist created from city's weather data."
         ></iframe>
       </div>
+      {/* Spotify logo with text */}
+      <Typography variant="caption" gutterBottom>
+        Powered by
+        <img
+          src="/assets/spotify-logo.svg" 
+          alt="Spotify Logo"
+          style={{ width: 80, marginLeft: 8, marginRight: 8 }}
+        />
+        Spotify
+      </Typography>
     </Box>
   );
 };
