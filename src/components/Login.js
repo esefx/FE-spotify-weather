@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 
 const Login = ({ onLogin }) => {
     const [error, setError] = useState('');
@@ -51,10 +54,11 @@ const Login = ({ onLogin }) => {
     };
 
     return (
-        <div>
-            <h2>Please Sign In to Spotify</h2>
-            <button onClick={handleLogin}>Sign In to Spotify</button>
-            {error && <p>{error}</p>}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Button variant="contained" color="secondary" onClick={handleLogin} style={{ marginTop: 16 }}>
+                Sign In to Spotify
+            </Button>
+            {error && <Alert severity="error" style={{ marginTop: 16 }}>{error}</Alert>}
         </div>
     );
 };
