@@ -30,8 +30,6 @@ const Login = ({ onLogin }) => {
         
                 localStorage.setItem('access_token', accessToken);
         
-                document.cookie = `access_token=${accessToken}; path=/; max-age=3600`; 
-        
                 onLogin(); 
             } catch (error) {
                 setError('Failed to complete Spotify login. Please try again.');

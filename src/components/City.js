@@ -100,9 +100,19 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
         </Button>
       )}
       {successMode && (
-        <Typography variant="body1" style={{ marginTop: 16 }}>
-          Enter another city to explore more weather and music!
-        </Typography>
+        <div>
+          <Typography variant="body1" style={{ marginTop: 16 }}>
+            Enter another city to explore more weather and music!
+          </Typography>
+          <TextField
+            fullWidth
+            label="Enter city name"
+            variant="outlined"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            style={{ marginTop: 8 }}
+          />
+        </div>
       )}
       {error && <Alert severity="error" style={{ marginTop: 16 }}>{error}</Alert>}
     </form>
