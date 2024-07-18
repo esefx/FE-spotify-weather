@@ -16,10 +16,10 @@ const TemperatureDisplay = ({ temperature, error }) => {
     alignItems: 'center',
     justifyContent: 'center',
     gap: theme.spacing(1),
-    animation: 'pulse 1s infinite',
+    animation: 'pulse 2s ease-in-out 1', // Pulse 3 times over 2 seconds
     '@keyframes pulse': {
       '0%': { transform: 'scale(1)' },
-      '50%': { transform: 'scale(1.1)' },
+      '50%': { transform: 'scale(1.05)' },
       '100%': { transform: 'scale(1)' },
     },
   }));
