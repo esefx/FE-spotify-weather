@@ -44,6 +44,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
 
       setError("");
       setSuccessMode(true); 
+      setCity(""); // Clear input field upon successful submission
     } catch (error) {
       // Handle error
       setError(error.response?.data?.message || "An error occurred");
@@ -55,7 +56,7 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
 
   const handleReset = () => {
     setSuccessMode(false); // Reset to input mode
-    setCity("");
+    setCity(""); // Clear input field
   };
 
   // Helper function to simulate a delay
@@ -126,6 +127,14 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
             onChange={(e) => setCity(e.target.value)}
             style={{ marginTop: 8 }}
           />
+          <Button
+            type="submit"
+            variant="outlined"
+            color="success"
+            style={{ marginTop: 16 }}
+          >
+            Get Weather
+          </Button>
         </div>
       )}
 
