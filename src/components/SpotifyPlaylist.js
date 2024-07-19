@@ -22,7 +22,7 @@ const SpotifyPlaylist = ({ playlistId }) => {
         ></iframe>
       </div>
       {/* Spotify logo with text */}
-      <Typography variant="caption" gutterBottom style={{ backgroundColor: 'white' }}>
+      {/* <Typography variant="caption" gutterBottom style={{ backgroundColor: 'white' }}>
         Powered by
         <img
           src="/assets/spotify-logo.svg" 
@@ -30,7 +30,7 @@ const SpotifyPlaylist = ({ playlistId }) => {
           style={{ width: 100, marginLeft: 8, marginRight: 8 }}
         />
        
-      </Typography>
+      </Typography> */}
     </Box>
   );
 };
