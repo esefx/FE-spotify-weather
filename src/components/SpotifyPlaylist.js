@@ -18,17 +18,18 @@ const SpotifyPlaylist = ({ playlistId }) => {
           allowtransparency="true"
           allow="encrypted-media"
           title="Spotify Playlist created from city's weather data."
+          style={{ border: 'none' }}
         ></iframe>
       </div>
       {/* Spotify logo with text */}
-      <Typography variant="caption" gutterBottom style={{ backgroundColor: 'transparent' }}>
+      <Typography variant="caption" gutterBottom style={{ backgroundColor: 'white' }}>
         Powered by
         <img
           src="/assets/spotify-logo.svg" 
           alt="Spotify Logo"
-          style={{ width: 120, marginLeft: 8, marginRight: 8 }}
+          style={{ width: 100, marginLeft: 8, marginRight: 8 }}
         />
-        Spotify
+       
       </Typography>
     </Box>
   );
