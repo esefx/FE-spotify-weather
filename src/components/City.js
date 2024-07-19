@@ -23,12 +23,11 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
     try {
       // Display loading messages sequentially
       setLoadingMessage(`Fetching weather in ${city}...`);
-      await wait(2000); // Wait for 2 seconds
+      await wait(1300); 
       setLoadingMessage(`Finding top hits in ${city}...`);
-      await wait(2000); // Wait for 2 seconds
+      await wait(1300); 
       setLoadingMessage(`Creating playlist with songs that fit the weather in ${city}...`);
-      await wait(2000); // Wait for 2 seconds
-
+      await wait(1300); 
       const response = await axios.post(
         'https://be-spotify-weather.onrender.com/weather', 
         { city }, 
@@ -50,12 +49,13 @@ const City = ({ onTemperatureUpdate, onSetPlaylist }) => {
       setError(error.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false); // Reset loading state regardless of success or failure
-      setLoadingMessage(""); // Clear loading message
+      setLoadingMessage("");
     }
   };
 
   const handleReset = () => {
     setSuccessMode(false); // Reset to input mode
+    setCity("");
   };
 
   // Helper function to simulate a delay
