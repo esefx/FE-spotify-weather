@@ -8,7 +8,9 @@ import CityInput from './components/City';
 import TemperatureDisplay from './components/TemperatureDisplay';
 import Login from './components/Login';
 import SpotifyPlaylist from './components/SpotifyPlaylist';
-import { theme } from './theme/theme'  // <-- Import your custom theme from theme.js
+import { theme } from './theme/theme' 
+import WeatherBeatsXL from './WeatherBeatsXL.png'; 
+
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -24,7 +26,8 @@ const App = () => {
       <CssBaseline />
       <Container maxWidth="md" style={{ paddingTop: 40, paddingBottom: 40 }}>
         {/* Adjust paddingTop and paddingBottom as needed */}
-        <Typography variant="h1" align="center" gutterBottom style={{ marginTop: 60 }}>
+        <img src={WeatherBeatsXL} alt="Weather Beats Logo" style={{ width: 400, display: 'block', margin: '0 auto' }} />
+        <Typography variant="h1" align="center" gutterBottom style={{ marginTop: 10 }}>
           Weather Beats
         </Typography>
         <Typography variant="body1" align="center" paragraph>
